@@ -78,13 +78,19 @@ int main(int argc, char* argv[]) {
         /* get TCP header length */
         uint8_t tcp_hdrlen = get_tcp_hdrlen(tcp);
 
-        /* adjust the packet to data */
+        /* adjust the packet to data (payload) */
         const uint8_t *data = packet + ETH_HEADER_LEN + ip_hdrlen + tcp_hdrlen;
 
         /* print packet information */
         printf(" ** TCP/IP packet - %u bytes captured ** \n", header->caplen);
-        printf("packet data = ");
-        for (int i = 0; (data + i) < (packet + header->caplen); i++) {
+        printf("eth.src_mac = ");  print_src_mac_addr(ethernet);  printf("\n");
+        printf("eth.dst_mac = ");  print_dst_mac_addr(ethernet);  printf("\n");
+        printf("ipv4.src = ");  print_src_ip_addr(ipv4);  printf("\n");
+        printf("ipv4.dst = ");  print_dst_ip_addr(ipv4);  printf("\n");
+        printf("tcp.src_port = %d\n", ntohs(tcp->src_port));
+        printf("tcp.dst_port = %d\n", ntohs(tcp->dst_port));
+        printf("payload(data) = ");
+        for (int i = 0; i < 16 && (data + i) < (packet + header->caplen); i++) {
             printf("%02x ", data[i]);
         }
         printf("\n\n");

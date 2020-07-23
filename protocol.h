@@ -41,4 +41,8 @@ struct TCP {
 uint8_t get_ip_version(const IPv4 *ip);
 uint8_t get_ip_hdrlen(const IPv4 *ip);
 uint8_t get_tcp_hdrlen(const TCP *tcp);
+void print_src_mac_addr(const Ethernet *eth);
+void print_dst_mac_addr(const Ethernet *eth);
+void print_src_ip_addr(const IPv4 *ip);
+void print_dst_ip_addr(const IPv4 *ip);
 
