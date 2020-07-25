@@ -90,7 +90,9 @@ int main(int argc, char* argv[]) {
         printf("tcp.src_port = %d\n", ntohs(tcp->src_port));
         printf("tcp.dst_port = %d\n", ntohs(tcp->dst_port));
         printf("payload(data) = ");
-        for (int i = 0; i < 16 && (data + i) < (packet + header->caplen); i++) {
+        for (int i = 0; i < 16 && 
+        (data + i) < (packet + ETH_HEADER_LEN + ntohs(ipv4->tot_len)); i++) {
+            // ipv4->tot_len == ip_hdrlen + tcp_hdrlen + payload
             printf("%02x ", data[i]);
         }
         printf("\n\n");
